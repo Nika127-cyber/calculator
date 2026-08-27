@@ -1,0 +1,871 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #07090d;
+    --card: #10141c;
+    --card-light: #171c26;
+    --text: #ffffff;
+    --muted: #8d96a6;
+    --border: rgba(255,255,255,0.08);
+    --accent: #7c5cff;
+    --accent-2: #5d8cff;
+    --button: #1b2029;
+    --special: #343b47;
+    --operator: #7c5cff;
+    --danger: #ff4d67;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 50% -10%, rgba(124,92,255,0.25), transparent 35%),
+        var(--bg);
+    color: var(--text);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    overflow-x: hidden;
+}
+
+button {
+    font: inherit;
+    border: 0;
+    cursor: pointer;
+    color: inherit;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.app {
+    width: min(100%, 1100px);
+    min-height: 100vh;
+    margin: auto;
+    padding: 24px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.brand-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+
+    display: grid;
+    place-items: center;
+
+    background: linear-gradient(
+        135deg,
+        var(--accent),
+        var(--accent-2)
+    );
+
+    font-size: 25px;
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 35px rgba(124,92,255,0.35);
+}
+
+.brand h1 {
+    font-size: 21px;
+    letter-spacing: -0.5px;
+}
+
+.brand p {
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.icon-button {
+    width: 45px;
+    height: 45px;
+    border-radius: 14px;
+
+    background: var(--card);
+    border: 1px solid var(--border);
+
+    font-size: 19px;
+
+    transition: 0.2s;
+}
+
+.icon-button:hover {
+    background: var(--card-light);
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.navigation {
+    display: flex;
+    gap: 8px;
+
+    padding: 7px;
+
+    background: rgba(16,20,28,0.85);
+    border: 1px solid var(--border);
+    border-radius: 19px;
+
+    backdrop-filter: blur(20px);
+
+    margin-bottom: 24px;
+}
+
+.nav-item {
+    flex: 1;
+
+    min-height: 62px;
+
+    border-radius: 14px;
+
+    background: transparent;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    color: var(--muted);
+
+    transition: 0.2s;
+}
+
+.nav-item span {
+    font-size: 19px;
+}
+
+.nav-item small {
+    font-size: 11px;
+}
+
+.nav-item:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.nav-item.active {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,92,255,0.28),
+            rgba(93,140,255,0.12)
+        );
+
+    box-shadow:
+        inset 0 0 0 1px rgba(124,92,255,0.25);
+}
+
+
+/* =========================
+   PAGES
+========================= */
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+    animation: pageIn 0.25s ease;
+}
+
+@keyframes pageIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================
+   CALCULATOR
+========================= */
+
+.calculator-card {
+    width: min(100%, 470px);
+    margin: 0 auto;
+
+    padding: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.055),
+            rgba(255,255,255,0.015)
+        ),
+        var(--card);
+
+    border: 1px solid var(--border);
+    border-radius: 30px;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,0.45);
+}
+
+.calculator-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.mode-button,
+.small-button {
+    background: var(--card-light);
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 9px 13px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+.small-button {
+    width: 39px;
+    height: 39px;
+    padding: 0;
+}
+
+
+/* DISPLAY */
+
+.display-container {
+    min-height: 150px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    padding: 12px 5px 20px;
+
+    overflow: hidden;
+}
+
+.previous-operation {
+    min-height: 25px;
+
+    color: var(--muted);
+
+    font-size: 15px;
+
+    margin-bottom: 4px;
+}
+
+.display {
+    width: 100%;
+
+    text-align: right;
+
+    font-size: clamp(42px, 10vw, 68px);
+    font-weight: 300;
+
+    letter-spacing: -2px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* CALCULATOR BUTTONS */
+
+.calculator-buttons {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 11px;
+}
+
+.calculator-button {
+    aspect-ratio: 1;
+
+    border-radius: 22px;
+
+    background: var(--button);
+
+    font-size: 23px;
+    font-weight: 500;
+
+    transition:
+        transform 0.12s,
+        background 0.2s,
+        box-shadow 0.2s;
+}
+
+.calculator-button:hover {
+    background: #242b36;
+}
+
+.calculator-button.special {
+    background: var(--special);
+    color: #dce1e8;
+}
+
+.calculator-button.operator,
+.calculator-button.equals {
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent-2)
+        );
+
+    box-shadow:
+        0 8px 25px rgba(124,92,255,0.2);
+}
+
+.calculator-button.operator:hover,
+.calculator-button.equals:hover {
+    filter: brightness(1.12);
+}
+
+.calculator-button.zero {
+    grid-column: span 2;
+    aspect-ratio: auto;
+}
+
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+.page-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 22px;
+}
+
+.page-title > span {
+    width: 50px;
+    height: 50px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 15px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    font-size: 23px;
+}
+
+.page-title h2 {
+    font-size: 24px;
+}
+
+.page-title p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+
+/* =========================
+   GAMES
+========================= */
+
+.game-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.game-card {
+    padding: 22px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 23px;
+
+    transition:
+        transform 0.2s,
+        border-color 0.2s;
+}
+
+.game-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(124,92,255,0.35);
+}
+
+.game-icon {
+    width: 54px;
+    height: 54px;
+
+    display: grid;
+    place-items: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,92,255,0.22),
+            rgba(93,140,255,0.08)
+        );
+
+    border-radius: 16px;
+
+    font-size: 26px;
+
+    margin-bottom: 17px;
+}
+
+.game-card h3 {
+    font-size: 18px;
+}
+
+.game-card p {
+    color: var(--muted);
+
+    font-size: 13px;
+    line-height: 1.6;
+
+    margin: 9px 0 16px;
+}
+
+.game-info {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    margin-bottom: 17px;
+}
+
+.game-info span {
+    padding: 6px 9px;
+
+    border-radius: 8px;
+
+    background: var(--card-light);
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.primary-button {
+    width: 100%;
+
+    padding: 11px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent-2)
+        );
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+.primary-button:hover {
+    filter: brightness(1.1);
+}
+
+
+/* =========================
+   TOOLS
+========================= */
+
+.tool-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 13px;
+}
+
+.tool-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 19px;
+
+    text-align: left;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 19px;
+
+    transition: 0.2s;
+}
+
+.tool-card:hover {
+    transform: translateY(-2px);
+
+    border-color:
+        rgba(124,92,255,0.35);
+}
+
+.tool-card > span {
+    width: 48px;
+    height: 48px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 14px;
+
+    background: var(--card-light);
+
+    font-size: 22px;
+
+    flex-shrink: 0;
+}
+
+.tool-card h3 {
+    font-size: 15px;
+}
+
+.tool-card p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-top: 4px;
+}
+
+
+/* =========================
+   HISTORY
+========================= */
+
+.history-container {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 22px;
+
+    min-height: 250px;
+
+    padding: 20px;
+}
+
+.empty-state {
+    min-height: 210px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+}
+
+.empty-state > div {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.empty-state h3 {
+    font-size: 17px;
+}
+
+.empty-state p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-top: 6px;
+}
+
+.danger-button {
+    margin-top: 15px;
+
+    padding: 11px 17px;
+
+    border-radius: 12px;
+
+    background: rgba(255,77,103,0.12);
+
+    color: #ff7287;
+
+    border: 1px solid rgba(255,77,103,0.2);
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+.settings-list {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 22px;
+
+    overflow: hidden;
+}
+
+.setting {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 20px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.setting:last-child {
+    border-bottom: 0;
+}
+
+.setting h3 {
+    font-size: 15px;
+}
+
+.setting p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-top: 4px;
+}
+
+
+/* SWITCH */
+
+.switch {
+    position: relative;
+
+    width: 48px;
+    height: 27px;
+
+    flex-shrink: 0;
+}
+
+.switch input {
+    display: none;
+}
+
+.switch span {
+    position: absolute;
+
+    inset: 0;
+
+    background: #2c323d;
+
+    border-radius: 20px;
+
+    transition: 0.2s;
+}
+
+.switch span::before {
+    content: "";
+
+    position: absolute;
+
+    width: 21px;
+    height: 21px;
+
+    left: 3px;
+    top: 3px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    transition: 0.2s;
+}
+
+.switch input:checked + span {
+    background: var(--accent);
+}
+
+.switch input:checked + span::before {
+    transform: translateX(21px);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    text-align: center;
+
+    padding: 28px 0 10px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+.footer span {
+    margin: 0 4px;
+}
+
+
+/* =========================
+   LIGHT THEME
+========================= */
+
+body.light {
+    --bg: #f3f5f9;
+    --card: #ffffff;
+    --card-light: #eef1f6;
+    --text: #12151b;
+    --muted: #687080;
+    --border: rgba(0,0,0,0.08);
+    --button: #e9edf3;
+    --special: #dce1e8;
+}
+
+body.light {
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(124,92,255,0.18),
+            transparent 35%
+        ),
+        var(--bg);
+}
+
+body.light .navigation {
+    background: rgba(255,255,255,0.8);
+}
+
+body.light .calculator-button:hover {
+    background: #dde2e9;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .app {
+        padding: 15px;
+    }
+
+    .header {
+        margin-bottom: 18px;
+    }
+
+    .navigation {
+        margin-bottom: 17px;
+    }
+
+    .nav-item {
+        min-height: 55px;
+    }
+
+    .nav-item span {
+        font-size: 17px;
+    }
+
+    .nav-item small {
+        font-size: 9px;
+    }
+
+    .game-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tool-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .calculator-card {
+        padding: 15px;
+        border-radius: 25px;
+    }
+
+    .calculator-button {
+        border-radius: 19px;
+        font-size: 21px;
+    }
+
+    .display-container {
+        min-height: 135px;
+    }
+}
+
+
+/* SMALL PHONES */
+
+@media (max-width: 390px) {
+
+    .calculator-buttons {
+        gap: 8px;
+    }
+
+    .calculator-button {
+        border-radius: 17px;
+        font-size: 19px;
+    }
+
+    .brand h1 {
+        font-size: 18px;
+    }
+
+    .brand-icon {
+        width: 43px;
+        height: 43px;
+    }
+}
