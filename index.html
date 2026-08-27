@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#0b0d12">
+    <meta name="description" content="Calculator Pro - Smart calculator with games, themes and useful tools">
+
+    <title>Calculator Pro</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- APP -->
+
+    <div class="app">
+
+        <!-- HEADER -->
+
+        <header class="header">
+
+            <div class="brand">
+                <div class="brand-icon">∑</div>
+
+                <div>
+                    <h1>Calculator Pro</h1>
+                    <p>Smart. Fast. Simple.</p>
+                </div>
+            </div>
+
+            <button class="icon-button" id="themeButton" aria-label="Change theme">
+                🌙
+            </button>
+
+        </header>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="navigation">
+
+            <button class="nav-item active" data-page="calculator">
+                <span>🧮</span>
+                <small>Calculator</small>
+            </button>
+
+            <button class="nav-item" data-page="games">
+                <span>🎮</span>
+                <small>Games</small>
+            </button>
+
+            <button class="nav-item" data-page="tools">
+                <span>🛠️</span>
+                <small>Tools</small>
+            </button>
+
+            <button class="nav-item" data-page="history">
+                <span>📜</span>
+                <small>History</small>
+            </button>
+
+            <button class="nav-item" data-page="settings">
+                <span>⚙️</span>
+                <small>Settings</small>
+            </button>
+
+        </nav>
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main">
+
+
+            <!-- CALCULATOR PAGE -->
+
+            <section class="page active" id="calculatorPage">
+
+                <div class="calculator-card">
+
+                    <div class="calculator-top">
+
+                        <button class="mode-button" id="calculatorMode">
+                            Basic ▾
+                        </button>
+
+                        <button class="small-button" id="historyQuickButton">
+                            📜
+                        </button>
+
+                    </div>
+
+
+                    <!-- DISPLAY -->
+
+                    <div class="display-container">
+
+                        <div class="previous-operation" id="previousOperation">
+                        </div>
+
+                        <div class="display" id="display">
+                            0
+                        </div>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="calculator-buttons">
+
+                        <button class="calculator-button special" data-action="clear">
+                            AC
+                        </button>
+
+                        <button class="calculator-button special" data-action="sign">
+                            +/−
+                        </button>
+
+                        <button class="calculator-button special" data-action="percent">
+                            %
+                        </button>
+
+                        <button class="calculator-button operator" data-operation="divide">
+                            ÷
+                        </button>
+
+
+                        <button class="calculator-button" data-number="7">
+                            7
+                        </button>
+
+                        <button class="calculator-button" data-number="8">
+                            8
+                        </button>
+
+                        <button class="calculator-button" data-number="9">
+                            9
+                        </button>
+
+                        <button class="calculator-button operator" data-operation="multiply">
+                            ×
+                        </button>
+
+
+                        <button class="calculator-button" data-number="4">
+                            4
+                        </button>
+
+                        <button class="calculator-button" data-number="5">
+                            5
+                        </button>
+
+                        <button class="calculator-button" data-number="6">
+                            6
+                        </button>
+
+                        <button class="calculator-button operator" data-operation="subtract">
+                            −
+                        </button>
+
+
+                        <button class="calculator-button" data-number="1">
+                            1
+                        </button>
+
+                        <button class="calculator-button" data-number="2">
+                            2
+                        </button>
+
+                        <button class="calculator-button" data-number="3">
+                            3
+                        </button>
+
+                        <button class="calculator-button operator" data-operation="add">
+                            +
+                        </button>
+
+
+                        <button class="calculator-button zero" data-number="0">
+                            0
+                        </button>
+
+                        <button class="calculator-button" data-action="decimal">
+                            .
+                        </button>
+
+                        <button class="calculator-button equals" data-action="equals">
+                            =
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- GAMES PAGE -->
+
+            <section class="page" id="gamesPage">
+
+                <div class="page-title">
+                    <span>🎮</span>
+
+                    <div>
+                        <h2>Mini Games</h2>
+                        <p>Improve your math skills while having fun.</p>
+                    </div>
+                </div>
+
+
+                <div class="game-grid">
+
+
+                    <article class="game-card">
+
+                        <div class="game-icon">🧠</div>
+
+                        <h3>Math Challenge</h3>
+
+                        <p>
+                            Solve as many equations as possible
+                            before time runs out.
+                        </p>
+
+                        <div class="game-info">
+                            <span>⏱️ 60 sec</span>
+                            <span>🏆 High Score</span>
+                        </div>
+
+                        <button class="primary-button" data-game="math">
+                            Play
+                        </button>
+
+                    </article>
+
+
+                    <article class="game-card">
+
+                        <div class="game-icon">⚡</div>
+
+                        <h3>Quick Tap</h3>
+
+                        <p>
+                            Test your reaction speed and
+                            beat your best score.
+                        </p>
+
+                        <div class="game-info">
+                            <span>⚡ Speed</span>
+                            <span>🏆 High Score</span>
+                        </div>
+
+                        <button class="primary-button" data-game="tap">
+                            Play
+                        </button>
+
+                    </article>
+
+
+                    <article class="game-card">
+
+                        <div class="game-icon">🃏</div>
+
+                        <h3>Memory Math</h3>
+
+                        <p>
+                            Remember numbers and find
+                            matching pairs.
+                        </p>
+
+                        <div class="game-info">
+                            <span>🧠 Memory</span>
+                            <span>🏆 High Score</span>
+                        </div>
+
+                        <button class="primary-button" data-game="memory">
+                            Play
+                        </button>
+
+                    </article>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- TOOLS PAGE -->
+
+            <section class="page" id="toolsPage">
+
+                <div class="page-title">
+
+                    <span>🛠️</span>
+
+                    <div>
+                        <h2>Useful Tools</h2>
+                        <p>More than just a calculator.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="tool-grid">
+
+
+                    <button class="tool-card" data-tool="geometry">
+
+                        <span>📐</span>
+
+                        <div>
+                            <h3>Geometry</h3>
+                            <p>Area, perimeter and volume</p>
+                        </div>
+
+                    </button>
+
+
+                    <button class="tool-card" data-tool="bmi">
+
+                        <span>⚖️</span>
+
+                        <div>
+                            <h3>BMI Calculator</h3>
+                            <p>Calculate body mass index</p>
+                        </div>
+
+                    </button>
+
+
+                    <button class="tool-card" data-tool="percentage">
+
+                        <span>💯</span>
+
+                        <div>
+                            <h3>Percentage</h3>
+                            <p>Quick percentage calculations</p>
+                        </div>
+
+                    </button>
+
+
+                    <button class="tool-card" data-tool="converter">
+
+                        <span>🔄</span>
+
+                        <div>
+                            <h3>Converter</h3>
+                            <p>Units and measurements</p>
+                        </div>
+
+                    </button>
+
+
+                    <button class="tool-card" data-tool="stopwatch">
+
+                        <span>⏱️</span>
+
+                        <div>
+                            <h3>Stopwatch</h3>
+                            <p>Track your time</p>
+                        </div>
+
+                    </button>
+
+
+                    <button class="tool-card" data-tool="scientific">
+
+                        <span>🔬</span>
+
+                        <div>
+                            <h3>Scientific</h3>
+                            <p>Advanced calculations</p>
+                        </div>
+
+                    </button>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- HISTORY PAGE -->
+
+            <section class="page" id="historyPage">
+
+                <div class="page-title">
+
+                    <span>📜</span>
+
+                    <div>
+                        <h2>History</h2>
+                        <p>Your recent calculations.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="history-container" id="historyContainer">
+
+                    <div class="empty-state">
+
+                        <div>🧮</div>
+
+                        <h3>No calculations yet</h3>
+
+                        <p>
+                            Your calculations will appear here.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <button class="danger-button" id="clearHistory">
+                    Clear History
+                </button>
+
+            </section>
+
+
+
+            <!-- SETTINGS PAGE -->
+
+            <section class="page" id="settingsPage">
+
+                <div class="page-title">
+
+                    <span>⚙️</span>
+
+                    <div>
+                        <h2>Settings</h2>
+                        <p>Customize Calculator Pro.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="settings-list">
+
+
+                    <div class="setting">
+
+                        <div>
+                            <h3>Dark Mode</h3>
+                            <p>Use the dark interface.</p>
+                        </div>
+
+                        <label class="switch">
+                            <input type="checkbox" id="darkModeToggle" checked>
+                            <span></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting">
+
+                        <div>
+                            <h3>Button Sounds</h3>
+                            <p>Play a sound when pressing buttons.</p>
+                        </div>
+
+                        <label class="switch">
+                            <input type="checkbox" id="soundToggle">
+                            <span></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting">
+
+                        <div>
+                            <h3>Vibration</h3>
+                            <p>Vibrate on button presses.</p>
+                        </div>
+
+                        <label class="switch">
+                            <input type="checkbox" id="vibrationToggle" checked>
+                            <span></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting">
+
+                        <div>
+                            <h3>Animations</h3>
+                            <p>Enable interface animations.</p>
+                        </div>
+
+                        <label class="switch">
+                            <input type="checkbox" id="animationToggle" checked>
+                            <span></span>
+                        </label>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+            <p>Calculator Pro <span>•</span> Version 1.0</p>
+        </footer>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>
