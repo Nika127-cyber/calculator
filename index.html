@@ -1,533 +1,1388 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* =========================================================
+   CALCULATOR PRO — PROFESSIONAL UI
+   Version 2.0
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #0b0d12;
+    --bg2: #11141b;
+    --card: rgba(255,255,255,0.055);
+    --card-hover: rgba(255,255,255,0.09);
+    --border: rgba(255,255,255,0.09);
+    --text: #f5f7fb;
+    --muted: #8e96a8;
+    --accent: #6c63ff;
+    --accent2: #8c84ff;
+    --danger: #ff5574;
+    --success: #35d49a;
+    --shadow: 0 25px 70px rgba(0,0,0,.35);
+}
+
+body.light {
+    --bg: #f2f4f8;
+    --bg2: #ffffff;
+    --card: rgba(0,0,0,0.045);
+    --card-hover: rgba(0,0,0,0.08);
+    --border: rgba(0,0,0,0.09);
+    --text: #151821;
+    --muted: #697080;
+    --shadow: 0 20px 50px rgba(0,0,0,.1);
+}
+
+body {
+    min-height: 100vh;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 20% 10%,
+            rgba(108,99,255,.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(53,212,154,.08),
+            transparent 30%
+        ),
+        var(--bg);
+
+    transition:
+        background .3s ease,
+        color .3s ease;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   APP LAYOUT
+========================================================= */
+
+.app {
+    min-height: 100vh;
+
+    display: grid;
+
+    grid-template-columns:
+        250px
+        minmax(0, 1fr);
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    width: 250px;
+    height: 100vh;
+
+    padding: 28px 18px;
+
+    background:
+        rgba(12,14,20,.82);
 
-    <meta name="theme-color" content="#0b0d12">
-    <meta name="description" content="Calculator Pro - Smart calculator with games, themes and useful tools">
+    backdrop-filter:
+        blur(25px);
 
-    <title>Calculator Pro</title>
+    border-right:
+        1px solid var(--border);
 
-    <link rel="stylesheet" href="style.css">
-</head>
+    z-index: 100;
+}
 
-<body>
+body.light .sidebar {
+    background:
+        rgba(255,255,255,.82);
+}
 
-    <!-- APP -->
 
-    <div class="app">
+/* =========================================================
+   LOGO
+========================================================= */
 
-        <!-- HEADER -->
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 
-        <header class="header">
+    padding: 8px 10px 28px;
+}
 
-            <div class="brand">
-                <div class="brand-icon">∑</div>
+.logo-icon {
+    width: 42px;
+    height: 42px;
 
-                <div>
-                    <h1>Calculator Pro</h1>
-                    <p>Smart. Fast. Simple.</p>
-                </div>
-            </div>
+    display: grid;
+    place-items: center;
 
-            <button class="icon-button" id="themeButton" aria-label="Change theme">
-                🌙
-            </button>
+    border-radius: 13px;
 
-        </header>
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+        );
 
+    box-shadow:
+        0 10px 30px
+        rgba(108,99,255,.3);
 
-        <!-- NAVIGATION -->
+    font-size: 21px;
+}
 
-        <nav class="navigation">
+.logo-text {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -.4px;
+}
 
-            <button class="nav-item active" data-page="calculator">
-                <span>🧮</span>
-                <small>Calculator</small>
-            </button>
+.logo-text span {
+    color: var(--accent2);
+}
 
-            <button class="nav-item" data-page="games">
-                <span>🎮</span>
-                <small>Games</small>
-            </button>
 
-            <button class="nav-item" data-page="tools">
-                <span>🛠️</span>
-                <small>Tools</small>
-            </button>
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
-            <button class="nav-item" data-page="history">
-                <span>📜</span>
-                <small>History</small>
-            </button>
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
 
-            <button class="nav-item" data-page="settings">
-                <span>⚙️</span>
-                <small>Settings</small>
-            </button>
+.nav-item {
+    width: 100%;
 
-        </nav>
+    display: flex;
+    align-items: center;
+    gap: 13px;
 
+    padding: 13px 14px;
 
-        <!-- MAIN CONTENT -->
+    border: 1px solid transparent;
+    border-radius: 13px;
 
-        <main class="main">
+    background: transparent;
 
+    color: var(--muted);
 
-            <!-- CALCULATOR PAGE -->
+    font-size: 14px;
+    font-weight: 600;
 
-            <section class="page active" id="calculatorPage">
+    cursor: pointer;
 
-                <div class="calculator-card">
+    transition:
+        .2s ease;
+}
 
-                    <div class="calculator-top">
+.nav-item:hover {
+    color: var(--text);
+    background: var(--card-hover);
+}
 
-                        <button class="mode-button" id="calculatorMode">
-                            Basic ▾
-                        </button>
+.nav-item.active {
+    color: white;
 
-                        <button class="small-button" id="historyQuickButton">
-                            📜
-                        </button>
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+        );
 
-                    </div>
+    box-shadow:
+        0 10px 30px
+        rgba(108,99,255,.2);
+}
 
+.nav-icon {
+    width: 21px;
 
-                    <!-- DISPLAY -->
+    text-align: center;
 
-                    <div class="display-container">
+    font-size: 18px;
+}
 
-                        <div class="previous-operation" id="previousOperation">
-                        </div>
 
-                        <div class="display" id="display">
-                            0
-                        </div>
+/* =========================================================
+   MAIN
+========================================================= */
 
-                    </div>
+.main {
+    grid-column: 2;
 
+    min-width: 0;
 
-                    <!-- BUTTONS -->
+    padding: 28px;
 
-                    <div class="calculator-buttons">
+    max-width: 1250px;
 
-                        <button class="calculator-button special" data-action="clear">
-                            AC
-                        </button>
+    width: 100%;
 
-                        <button class="calculator-button special" data-action="sign">
-                            +/−
-                        </button>
+    margin: auto;
+}
 
-                        <button class="calculator-button special" data-action="percent">
-                            %
-                        </button>
 
-                        <button class="calculator-button operator" data-operation="divide">
-                            ÷
-                        </button>
+/* =========================================================
+   TOP BAR
+========================================================= */
 
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-                        <button class="calculator-button" data-number="7">
-                            7
-                        </button>
+    margin-bottom: 28px;
+}
 
-                        <button class="calculator-button" data-number="8">
-                            8
-                        </button>
+.topbar h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -.8px;
+}
 
-                        <button class="calculator-button" data-number="9">
-                            9
-                        </button>
+.topbar p {
+    margin-top: 4px;
 
-                        <button class="calculator-button operator" data-operation="multiply">
-                            ×
-                        </button>
+    color: var(--muted);
 
+    font-size: 13px;
+}
 
-                        <button class="calculator-button" data-number="4">
-                            4
-                        </button>
+.topbar-actions {
+    display: flex;
+    gap: 8px;
+}
 
-                        <button class="calculator-button" data-number="5">
-                            5
-                        </button>
 
-                        <button class="calculator-button" data-number="6">
-                            6
-                        </button>
+/* =========================================================
+   ICON BUTTON
+========================================================= */
 
-                        <button class="calculator-button operator" data-operation="subtract">
-                            −
-                        </button>
+.icon-button {
+    width: 43px;
+    height: 43px;
 
+    display: grid;
+    place-items: center;
 
-                        <button class="calculator-button" data-number="1">
-                            1
-                        </button>
+    border:
+        1px solid var(--border);
 
-                        <button class="calculator-button" data-number="2">
-                            2
-                        </button>
+    border-radius: 13px;
 
-                        <button class="calculator-button" data-number="3">
-                            3
-                        </button>
+    background:
+        var(--card);
 
-                        <button class="calculator-button operator" data-operation="add">
-                            +
-                        </button>
+    color: var(--text);
 
+    cursor: pointer;
 
-                        <button class="calculator-button zero" data-number="0">
-                            0
-                        </button>
+    font-size: 18px;
 
-                        <button class="calculator-button" data-action="decimal">
-                            .
-                        </button>
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
 
-                        <button class="calculator-button equals" data-action="equals">
-                            =
-                        </button>
+.icon-button:hover {
+    transform: translateY(-2px);
 
-                    </div>
+    background:
+        var(--card-hover);
+}
 
-                </div>
 
-            </section>
+/* =========================================================
+   PAGE
+========================================================= */
 
+.page {
+    display: none;
 
+    animation:
+        pageIn .3s ease;
+}
 
-            <!-- GAMES PAGE -->
+.page.active {
+    display: block;
+}
 
-            <section class="page" id="gamesPage">
+@keyframes pageIn {
 
-                <div class="page-title">
-                    <span>🎮</span>
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
 
-                    <div>
-                        <h2>Mini Games</h2>
-                        <p>Improve your math skills while having fun.</p>
-                    </div>
-                </div>
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
+}
 
-                <div class="game-grid">
 
+/* =========================================================
+   CALCULATOR
+========================================================= */
 
-                    <article class="game-card">
+.calculator-wrapper {
+    max-width: 540px;
 
-                        <div class="game-icon">🧠</div>
+    margin: 0 auto;
+}
 
-                        <h3>Math Challenge</h3>
+.calculator {
+    position: relative;
 
-                        <p>
-                            Solve as many equations as possible
-                            before time runs out.
-                        </p>
+    padding: 22px;
 
-                        <div class="game-info">
-                            <span>⏱️ 60 sec</span>
-                            <span>🏆 High Score</span>
-                        </div>
+    border:
+        1px solid var(--border);
 
-                        <button class="primary-button" data-game="math">
-                            Play
-                        </button>
+    border-radius: 28px;
 
-                    </article>
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025)
+        );
 
+    backdrop-filter:
+        blur(25px);
 
-                    <article class="game-card">
+    box-shadow:
+        var(--shadow);
 
-                        <div class="game-icon">⚡</div>
+    overflow: hidden;
+}
 
-                        <h3>Quick Tap</h3>
+.calculator::before {
+    content: "";
 
-                        <p>
-                            Test your reaction speed and
-                            beat your best score.
-                        </p>
+    position: absolute;
 
-                        <div class="game-info">
-                            <span>⚡ Speed</span>
-                            <span>🏆 High Score</span>
-                        </div>
+    width: 180px;
+    height: 180px;
 
-                        <button class="primary-button" data-game="tap">
-                            Play
-                        </button>
+    top: -90px;
+    right: -70px;
 
-                    </article>
+    border-radius: 50%;
 
+    background:
+        rgba(108,99,255,.12);
 
-                    <article class="game-card">
+    filter:
+        blur(5px);
 
-                        <div class="game-icon">🃏</div>
+    pointer-events: none;
+}
 
-                        <h3>Memory Math</h3>
 
-                        <p>
-                            Remember numbers and find
-                            matching pairs.
-                        </p>
+/* =========================================================
+   DISPLAY
+========================================================= */
 
-                        <div class="game-info">
-                            <span>🧠 Memory</span>
-                            <span>🏆 High Score</span>
-                        </div>
+.display {
+    min-height: 155px;
 
-                        <button class="primary-button" data-game="memory">
-                            Play
-                        </button>
+    display: flex;
+    flex-direction: column;
 
-                    </article>
+    justify-content: flex-end;
+    align-items: flex-end;
 
+    padding: 20px 12px 24px;
 
-                </div>
+    overflow: hidden;
+}
 
-            </section>
+.previous-operation {
+    min-height: 24px;
 
+    width: 100%;
 
+    text-align: right;
 
-            <!-- TOOLS PAGE -->
+    color: var(--muted);
 
-            <section class="page" id="toolsPage">
+    font-size: 15px;
 
-                <div class="page-title">
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-                    <span>🛠️</span>
+.display-value {
+    width: 100%;
 
-                    <div>
-                        <h2>Useful Tools</h2>
-                        <p>More than just a calculator.</p>
-                    </div>
+    margin-top: 8px;
 
-                </div>
+    text-align: right;
 
+    font-size: 62px;
 
-                <div class="tool-grid">
+    font-weight: 300;
 
+    letter-spacing: -2px;
 
-                    <button class="tool-card" data-tool="geometry">
+    overflow: hidden;
 
-                        <span>📐</span>
+    white-space: nowrap;
 
-                        <div>
-                            <h3>Geometry</h3>
-                            <p>Area, perimeter and volume</p>
-                        </div>
+    transition:
+        font-size .15s ease;
+}
 
-                    </button>
 
+/* =========================================================
+   BUTTON GRID
+========================================================= */
 
-                    <button class="tool-card" data-tool="bmi">
+.calculator-buttons {
+    display: grid;
 
-                        <span>⚖️</span>
+    grid-template-columns:
+        repeat(4, 1fr);
 
-                        <div>
-                            <h3>BMI Calculator</h3>
-                            <p>Calculate body mass index</p>
-                        </div>
+    gap: 10px;
+}
 
-                    </button>
+.calc-button {
+    height: 68px;
 
+    border: 1px solid var(--border);
 
-                    <button class="tool-card" data-tool="percentage">
+    border-radius: 18px;
 
-                        <span>💯</span>
+    background:
+        rgba(255,255,255,.045);
 
-                        <div>
-                            <h3>Percentage</h3>
-                            <p>Quick percentage calculations</p>
-                        </div>
+    color: var(--text);
 
-                    </button>
+    font-size: 20px;
 
+    font-weight: 600;
 
-                    <button class="tool-card" data-tool="converter">
+    cursor: pointer;
 
-                        <span>🔄</span>
+    user-select: none;
 
-                        <div>
-                            <h3>Converter</h3>
-                            <p>Units and measurements</p>
-                        </div>
+    transition:
+        transform .12s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
 
-                    </button>
+.calc-button:hover {
+    background:
+        rgba(255,255,255,.09);
 
+    transform:
+        translateY(-2px);
+}
 
-                    <button class="tool-card" data-tool="stopwatch">
+.calc-button:active {
+    transform:
+        scale(.94);
+}
 
-                        <span>⏱️</span>
+.calc-button.operator {
+    background:
+        rgba(108,99,255,.16);
 
-                        <div>
-                            <h3>Stopwatch</h3>
-                            <p>Track your time</p>
-                        </div>
+    color:
+        var(--accent2);
+}
 
-                    </button>
+.calc-button.equals {
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+        );
 
+    color: white;
 
-                    <button class="tool-card" data-tool="scientific">
+    border-color:
+        transparent;
 
-                        <span>🔬</span>
+    box-shadow:
+        0 10px 25px
+        rgba(108,99,255,.25);
+}
 
-                        <div>
-                            <h3>Scientific</h3>
-                            <p>Advanced calculations</p>
-                        </div>
+.calc-button.clear {
+    color:
+        var(--danger);
+}
 
-                    </button>
 
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
 
-                </div>
+.primary-button {
+    border: none;
 
-            </section>
+    border-radius: 13px;
 
+    padding: 13px 18px;
 
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+        );
 
-            <!-- HISTORY PAGE -->
+    color: white;
 
-            <section class="page" id="historyPage">
+    font-weight: 700;
 
-                <div class="page-title">
+    cursor: pointer;
 
-                    <span>📜</span>
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
 
-                    <div>
-                        <h2>History</h2>
-                        <p>Your recent calculations.</p>
-                    </div>
+.primary-button:hover {
+    transform:
+        translateY(-2px);
 
-                </div>
+    box-shadow:
+        0 10px 25px
+        rgba(108,99,255,.25);
+}
 
+.primary-button:active {
+    transform:
+        scale(.97);
+}
 
-                <div class="history-container" id="historyContainer">
 
-                    <div class="empty-state">
+/* =========================================================
+   PAGE TITLE
+========================================================= */
 
-                        <div>🧮</div>
+.page-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
 
-                        <h3>No calculations yet</h3>
+    margin-bottom: 25px;
+}
 
-                        <p>
-                            Your calculations will appear here.
-                        </p>
+.page-title > span {
+    width: 48px;
+    height: 48px;
 
-                    </div>
+    display: grid;
+    place-items: center;
 
-                </div>
+    border-radius: 15px;
 
+    background:
+        var(--card);
 
-                <button class="danger-button" id="clearHistory">
-                    Clear History
-                </button>
+    border:
+        1px solid var(--border);
 
-            </section>
+    font-size: 23px;
+}
 
+.page-title h2 {
+    font-size: 25px;
 
+    letter-spacing: -.5px;
+}
 
-            <!-- SETTINGS PAGE -->
+.page-title p {
+    color: var(--muted);
 
-            <section class="page" id="settingsPage">
+    margin-top: 4px;
 
-                <div class="page-title">
+    font-size: 13px;
+}
 
-                    <span>⚙️</span>
 
-                    <div>
-                        <h2>Settings</h2>
-                        <p>Customize Calculator Pro.</p>
-                    </div>
+/* =========================================================
+   CARDS
+========================================================= */
 
-                </div>
+.card,
+.game-card {
+    border:
+        1px solid var(--border);
 
+    border-radius: 22px;
 
-                <div class="settings-list">
+    background:
+        var(--card);
 
+    backdrop-filter:
+        blur(20px);
 
-                    <div class="setting">
+    box-shadow:
+        var(--shadow);
 
-                        <div>
-                            <h3>Dark Mode</h3>
-                            <p>Use the dark interface.</p>
-                        </div>
+    padding: 22px;
+}
 
-                        <label class="switch">
-                            <input type="checkbox" id="darkModeToggle" checked>
-                            <span></span>
-                        </label>
+.game-card {
+    max-width: 800px;
 
-                    </div>
+    margin-bottom: 20px;
+}
 
 
-                    <div class="setting">
+/* =========================================================
+   GAME GRID
+========================================================= */
 
-                        <div>
-                            <h3>Button Sounds</h3>
-                            <p>Play a sound when pressing buttons.</p>
-                        </div>
+.games-grid {
+    display: grid;
 
-                        <label class="switch">
-                            <input type="checkbox" id="soundToggle">
-                            <span></span>
-                        </label>
+    grid-template-columns:
+        repeat(3, 1fr);
 
-                    </div>
+    gap: 16px;
+}
 
+.game-card-small {
+    padding: 22px;
 
-                    <div class="setting">
+    border:
+        1px solid var(--border);
 
-                        <div>
-                            <h3>Vibration</h3>
-                            <p>Vibrate on button presses.</p>
-                        </div>
+    border-radius: 20px;
 
-                        <label class="switch">
-                            <input type="checkbox" id="vibrationToggle" checked>
-                            <span></span>
-                        </label>
+    background:
+        var(--card);
 
-                    </div>
+    cursor: pointer;
 
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
 
-                    <div class="setting">
+.game-card-small:hover {
+    transform:
+        translateY(-5px);
 
-                        <div>
-                            <h3>Animations</h3>
-                            <p>Enable interface animations.</p>
-                        </div>
+    background:
+        var(--card-hover);
+}
 
-                        <label class="switch">
-                            <input type="checkbox" id="animationToggle" checked>
-                            <span></span>
-                        </label>
+.game-icon {
+    font-size: 36px;
 
-                    </div>
+    margin-bottom: 15px;
+}
 
+.game-card-small h3 {
+    font-size: 17px;
 
-                </div>
+    margin-bottom: 6px;
+}
 
-            </section>
+.game-card-small p {
+    color: var(--muted);
 
-        </main>
+    font-size: 13px;
 
+    line-height: 1.5;
+}
 
-        <!-- FOOTER -->
 
-        <footer class="footer">
-            <p>Calculator Pro <span>•</span> Version 1.0</p>
-        </footer>
+/* =========================================================
+   GAME INFO
+========================================================= */
 
-    </div>
+.game-info {
+    display: grid;
 
+    grid-template-columns:
+        repeat(3, 1fr);
 
-    <!-- JAVASCRIPT -->
+    gap: 10px;
 
-    <script src="script.js"></script>
+    margin-bottom: 20px;
+}
 
-</body>
-</html>
+.game-info span {
+    padding: 13px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid var(--border);
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+.game-info strong {
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--text);
+
+    font-size: 19px;
+}
+
+
+/* =========================================================
+   MEMORY CARDS
+========================================================= */
+
+.memory-card {
+    aspect-ratio: 1;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    color: var(--text);
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+.memory-card:hover {
+    transform:
+        scale(1.04);
+
+    background:
+        rgba(108,99,255,.15);
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.history-item {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 16px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 16px;
+
+    background:
+        var(--card);
+}
+
+.history-expression {
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.history-result {
+    margin-top: 4px;
+
+    font-size: 20px;
+
+    font-weight: 700;
+}
+
+.history-item small {
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.history-delete {
+    width: 35px;
+    height: 35px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,85,116,.1);
+
+    color:
+        var(--danger);
+
+    cursor: pointer;
+
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state {
+    padding: 60px 20px;
+
+    text-align: center;
+
+    color: var(--muted);
+}
+
+.empty-state > div {
+    font-size: 42px;
+
+    margin-bottom: 12px;
+}
+
+.empty-state h3 {
+    color: var(--text);
+
+    margin-bottom: 6px;
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+.settings-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    max-width: 750px;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 17px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 16px;
+
+    background:
+        var(--card);
+}
+
+.setting-item h3 {
+    font-size: 14px;
+}
+
+.setting-item p {
+    color: var(--muted);
+
+    margin-top: 4px;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   TOGGLE
+========================================================= */
+
+.switch {
+    position: relative;
+
+    width: 48px;
+    height: 27px;
+
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 30px;
+
+    background:
+        #444a58;
+
+    cursor: pointer;
+
+    transition:
+        .25s ease;
+}
+
+.slider::before {
+    content: "";
+
+    position: absolute;
+
+    width: 21px;
+    height: 21px;
+
+    left: 3px;
+    top: 3px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    transition:
+        .25s ease;
+}
+
+.switch input:checked + .slider {
+    background:
+        var(--accent);
+}
+
+.switch input:checked + .slider::before {
+    transform:
+        translateX(21px);
+}
+
+
+/* =========================================================
+   TOOLS
+========================================================= */
+
+.tools-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.tool-card {
+    padding: 22px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 20px;
+
+    background:
+        var(--card);
+
+    cursor: pointer;
+
+    transition:
+        .2s ease;
+}
+
+.tool-card:hover {
+    transform:
+        translateY(-4px);
+
+    background:
+        var(--card-hover);
+}
+
+.tool-card-icon {
+    font-size: 30px;
+
+    margin-bottom: 13px;
+}
+
+.tool-card h3 {
+    font-size: 16px;
+
+    margin-bottom: 6px;
+}
+
+.tool-card p {
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+input,
+select {
+    outline: none;
+
+    border:
+        1px solid var(--border);
+
+    background:
+        var(--card);
+
+    color:
+        var(--text);
+
+    font-family: inherit;
+}
+
+input:focus,
+select:focus {
+    border-color:
+        var(--accent);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(108,99,255,.12);
+}
+
+input::placeholder {
+    color:
+        var(--muted);
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background:
+        rgba(255,255,255,.14);
+
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background:
+        rgba(255,255,255,.25);
+}
+
+
+/* =========================================================
+   NO ANIMATIONS
+========================================================= */
+
+body.no-animations *,
+body.no-animations *::before,
+body.no-animations *::after {
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0s !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 950px) {
+
+    .app {
+        grid-template-columns:
+            85px
+            minmax(0, 1fr);
+    }
+
+    .sidebar {
+        width: 85px;
+
+        padding:
+            20px 10px;
+    }
+
+    .logo {
+        justify-content: center;
+    }
+
+    .logo-text {
+        display: none;
+    }
+
+    .nav-item {
+        justify-content: center;
+
+        padding: 13px 8px;
+    }
+
+    .nav-item span:not(.nav-icon) {
+        display: none;
+    }
+
+    .main {
+        grid-column: 2;
+
+        padding: 22px;
+    }
+
+    .games-grid,
+    .tools-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    body {
+        padding-bottom: 75px;
+    }
+
+    .app {
+        display: block;
+    }
+
+    .sidebar {
+        position: fixed;
+
+        top: auto;
+        bottom: 0;
+
+        left: 0;
+
+        width: 100%;
+        height: 70px;
+
+        padding: 7px 8px;
+
+        border-right: none;
+
+        border-top:
+            1px solid var(--border);
+
+        z-index: 1000;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .nav {
+        height: 100%;
+
+        flex-direction: row;
+
+        justify-content:
+            space-around;
+
+        align-items: center;
+
+        gap: 2px;
+    }
+
+    .nav-item {
+        width: 20%;
+
+        height: 55px;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        gap: 3px;
+
+        padding: 5px;
+
+        border-radius: 12px;
+
+        font-size: 9px;
+    }
+
+    .nav-item span:not(.nav-icon) {
+        display: block;
+    }
+
+    .nav-icon {
+        font-size: 18px;
+    }
+
+    .main {
+        padding:
+            17px 12px 25px;
+
+        width: 100%;
+    }
+
+    .topbar {
+        margin-bottom: 18px;
+    }
+
+    .topbar h1 {
+        font-size: 22px;
+    }
+
+    .topbar p {
+        font-size: 11px;
+    }
+
+    .calculator {
+        padding: 13px;
+
+        border-radius: 23px;
+    }
+
+    .display {
+        min-height: 125px;
+
+        padding:
+            15px 8px 20px;
+    }
+
+    .display-value {
+        font-size: 48px;
+    }
+
+    .calculator-buttons {
+        gap: 7px;
+    }
+
+    .calc-button {
+        height: 61px;
+
+        border-radius: 15px;
+
+        font-size: 18px;
+    }
+
+    .page-title h2 {
+        font-size: 21px;
+    }
+
+    .games-grid,
+    .tools-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .game-info {
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 6px;
+    }
+
+    .game-info span {
+        padding: 10px 5px;
+    }
+
+    .game-info strong {
+        font-size: 16px;
+    }
+
+    .game-card {
+        padding: 15px;
+
+        border-radius: 18px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .calc-button {
+        height: 55px;
+
+        font-size: 17px;
+    }
+
+    .display-value {
+        font-size: 42px;
+    }
+
+    .calculator {
+        padding: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   SELECTION
+========================================================= */
+
+::selection {
+    background:
+        rgba(108,99,255,.35);
+
+    color:
+        white;
+}
